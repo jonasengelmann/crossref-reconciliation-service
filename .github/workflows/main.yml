@@ -9,4 +9,4 @@ jobs:
       - name: Build the stack
         run: docker build -t crossref-reconciliation-service .
       - name: Run the stack
-        run: docker run --rm -p 80:80 --env DOMAIN='${{ vars.DOMAIN }}' --name crossref-reconciliation-service crossref-reconciliation-service
+        run: docker run -d --rm -p 80:80 --env DOMAIN='${{ vars.DOMAIN }}' --name crossref-reconciliation-service crossref-reconciliation-service
