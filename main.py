@@ -36,7 +36,7 @@ metadata = {
     },
     "suggest": {
         "property": {
-            "service_url": os.environ["DOMAIN"],
+            "service_url": os.environ["DOMAIN"].strip("/"),
             "service_path": "/suggest",
         }
     },
