@@ -5,8 +5,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Stop the stack
-        run: docker rm $(docker stop $(docker ps -a -q --filter ancestor=crossref-rec-service --format="{{.ID}}"))
+        run: docker stop crossref-reconciliation-service || true && docker rm crossref-reconciliation-service || true
       - name: Build the stack
-        run: docker build -t crossref-rec-service .
+        run: docker build -t crossref-reconciliation-service .
       - name: Run the stack
-        run: docker run --rm -p 80:80 --env DOMAIN='${{ vars.DOMAIN }}' crossref-rec-service
+        run: docker run --rm -p 80:80 --env DOMAIN='${{ vars.DOMAIN }}' --name crossref-reconciliation-service crossref-reconciliation-service
