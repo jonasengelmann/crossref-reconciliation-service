@@ -1,0 +1,12 @@
+on: push
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+      - name: Stop the stack
+        run: docker rm $(docker stop $(docker ps -a -q --filter ancestor=crossref-rec-service --format="{{.ID}}"))
+      - name: Build the stack
+        run: docker build -t crossref-rec-service .
+      - name: Run the stack
+        run: docker run --rm -p 80:80 --env DOMAIN='${{ vars.DOMAIN }}' crossref-rec-service
