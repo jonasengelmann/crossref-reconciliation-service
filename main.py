@@ -60,6 +60,7 @@ def process_queries(queries):
         crossref_results = crossref_api.search(
             title=query["query"],
             author=author,
+            publication_type=query.get("type"),
             publication_year=publication_year,
         )
 

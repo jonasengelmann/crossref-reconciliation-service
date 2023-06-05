@@ -22,6 +22,7 @@ class CrossrefAPIWrapper(object):
         self,
         title: str,
         author: Optional[str] = None,
+        publication_type: Optional[str] = None,
         publication_year: Optional[int] = None,
     ) -> list[dict]:
         search_results = self.cr.works(
@@ -29,6 +30,10 @@ class CrossrefAPIWrapper(object):
         )
 
         items = search_results.get("message", {}).get("items", [])
+
+        if publication_type:
+            items = [x for x in items if x.get("type") == publication_type]
+
         if publication_year:
             items = [
                 x
